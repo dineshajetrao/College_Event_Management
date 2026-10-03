@@ -7,3 +7,7 @@ test("valid login works", () => {
 test("wrong password fails", () => {
   expect(login("admin", "wrong")).toBe(false);
 });
+
+test("unknown user fails", () => {
+  expect(login("nobody", "x")).toBe(false);
+});
