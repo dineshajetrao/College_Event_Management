@@ -1,14 +1,93 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>College Event Management</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>College Event Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <h1>College Event Management System</h1>
-  <p>Baburaoji Gholap College - M.Sc. DevOps Project</p>
-  <ul>
-    <li>Student Registration</li>
-    <li>Event Management</li>
-    <li>Login</li>
-    <li>Reports</li>
-  </ul>
+  <header>
+    <h1>College Event Management</h1>
+    <div id="userbar" hidden>
+      <span id="whoami"></span>
+      <button id="logout">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="auth" class="panel">
+      <div class="tabs">
+        <button id="auth-tab-login" class="active">Login</button>
+        <button id="auth-tab-register">Register</button>
+      </div>
+
+      <form id="login-form">
+        <label for="login-user">Email or username</label>
+        <input id="login-user" required>
+        <label for="login-pass">Password</label>
+        <input id="login-pass" type="password" required>
+        <button type="submit">Login</button>
+        <p class="hint">Demo accounts: admin / admin123 (organiser), student / student123</p>
+      </form>
+
+      <form id="register-form" hidden>
+        <label for="reg-name">Full name</label>
+        <input id="reg-name" required>
+        <label for="reg-email">Email</label>
+        <input id="reg-email" type="email" required>
+        <label for="reg-phone">Phone (10 digits)</label>
+        <input id="reg-phone" required>
+        <label for="reg-pass">Password (min 6 characters)</label>
+        <input id="reg-pass" type="password" required>
+        <button type="submit">Create account</button>
+      </form>
+    </section>
+
+    <section id="app" hidden>
+      <div class="tabs">
+        <button class="nav active" data-view="events">Events</button>
+        <button class="nav" data-view="mine">My Registrations</button>
+        <button class="nav" id="nav-report" data-view="report">Report</button>
+      </div>
+
+      <div id="view-events" class="view">
+        <div id="admin-box" class="panel" hidden>
+          <h2>Create event</h2>
+          <form id="event-form">
+            <label for="ev-title">Title</label>
+            <input id="ev-title" required>
+            <label for="ev-date">Date</label>
+            <input id="ev-date" type="date" required>
+            <label for="ev-venue">Venue</label>
+            <input id="ev-venue">
+            <button type="submit">Add event</button>
+          </form>
+        </div>
+        <div class="panel">
+          <h2>Upcoming events</h2>
+          <div id="event-list" class="grid"></div>
+        </div>
+      </div>
+
+      <div id="view-mine" class="view panel" hidden>
+        <h2>My registrations</h2>
+        <div id="mine-list"></div>
+      </div>
+
+      <div id="view-report" class="view panel" hidden>
+        <h2>Registrations per event</h2>
+        <div id="report-box"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast"></div>
+
+  <script src="src/registration.js"></script>
+  <script src="src/login.js"></script>
+  <script src="src/event.js"></script>
+  <script src="src/report.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
