@@ -6,4 +6,27 @@ function validateRegistration({ name, email, phone }) {
   return { valid: errors.length === 0, errors };
 }
 
-module.exports = { validateRegistration };
+function registerStudent(students, data) {
+  const errors = validateRegistration(data).errors.slice();
+  if (!data.password || data.password.length < 6) {
+    errors.push("Password must be at least 6 characters");
+  }
+  if (errors.length > 0) return { ok: false, errors };
+  const email = data.email.trim().toLowerCase();
+  if (students.some((s) => s.email === email)) {
+    return { ok: false, errors: ["Email is already registered"] };
+  }
+  const student = {
+    name: data.name.trim(),
+    email,
+    phone: data.phone,
+    password: data.password
+  };
+  return { ok: true, students: [...students, student] };
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { validateRegistration, registerStudent };
+} else {
+  window.RegistrationLib = { validateRegistration, registerStudent };
+}
