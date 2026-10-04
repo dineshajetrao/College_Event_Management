@@ -5,4 +5,8 @@ function eventReport(events, registrations) {
   }));
 }
 
-module.exports = { eventReport };
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { eventReport };
+} else {
+  window.ReportLib = { eventReport };
+}
