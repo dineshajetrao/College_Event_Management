@@ -3,4 +3,19 @@ function createEvent({ title, date, venue }) {
   return { title, date, venue: venue || "TBD" };
 }
 
-module.exports = { createEvent };
+function registerForEvent(registrations, eventTitle, studentId) {
+  const exists = registrations.some(
+    (r) => r.event === eventTitle && r.student === studentId
+  );
+  if (exists) return { ok: false, error: "Already registered for this event" };
+  return {
+    ok: true,
+    registrations: [...registrations, { event: eventTitle, student: studentId }]
+  };
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { createEvent, registerForEvent };
+} else {
+  window.EventLib = { createEvent, registerForEvent };
+}
